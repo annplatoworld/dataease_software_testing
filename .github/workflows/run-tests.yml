@@ -36,7 +36,7 @@ jobs:
         run: mvn install -N -B
 
       - name: Run SDK tests (root)
-        run: mvn clean test -B --fail-at-end
+        run: mvn clean install -B --fail-at-end
 
       - name: Run Core tests
         run: |
