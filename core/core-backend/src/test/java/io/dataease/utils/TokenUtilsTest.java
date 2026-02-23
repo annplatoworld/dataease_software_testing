@@ -40,6 +40,19 @@ class TokenUtilsTest {
     }
 
     @Test
+    void validate_blankToken_throwsWithUri_usingSubclassStub() {
+        try (MockedStatic<ServletUtils> servletUtils = mockStatic(ServletUtils.class)) {
+            HttpServletRequest request = new StubHttpServletRequest("/api/dataset/list");
+            servletUtils.when(ServletUtils::request).thenReturn(request);
+
+            assertThatThrownBy(() -> TokenUtils.validate(""))
+                    .isInstanceOf(DEException.class)
+                    .hasMessageContaining("token is empty")
+                    .hasMessageContaining("/api/dataset/list");
+        }
+    }
+
+    @Test
     void validate_nullToken_throwsWithUri() {
         try (MockedStatic<ServletUtils> servletUtils = mockStatic(ServletUtils.class)) {
             HttpServletRequest request = mock(HttpServletRequest.class);
