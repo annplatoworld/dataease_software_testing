@@ -38,6 +38,9 @@ jobs:
       - name: Run SDK tests (root)
         run: mvn clean install -B --fail-at-end
 
+      - name: Run extensions-datasource (provider) tests
+        run: mvn test -pl sdk/extensions/extensions-datasource -B
+
       - name: Run Core tests
         run: |
           cd core
